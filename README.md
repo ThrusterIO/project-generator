@@ -1,16 +1,13 @@
 # ProjectGenerator Tool
 
-[![Latest Version](https://img.shields.io/github/release/ThrusterIO/project-generator.svg?style=flat-square)]
-(https://github.com/ThrusterIO/project-generator/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)]
-(LICENSE)
-[![Quality Score](https://img.shields.io/scrutinizer/g/ThrusterIO/project-generator.svg?style=flat-square)]
-(https://scrutinizer-ci.com/g/ThrusterIO/project-generator)
-[![Total Downloads](https://img.shields.io/packagist/dt/thruster/project-generator.svg?style=flat-square)]
-(https://packagist.org/packages/thruster/project-generator)
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE)
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
 
-[![Email](https://img.shields.io/badge/email-team@thruster.io-blue.svg?style=flat-square)]
-(mailto:team@thruster.io)
+[![Email][ico-email]][link-email]
 
 The Thruster ProjectGenerator Tool.
 
@@ -30,10 +27,30 @@ $ thruster-project
 
 ## Testing
 
-``` bash
+Run test cases
+
+```bash
 $ composer test
 ```
 
+Run test cases with coverage (HTML format)
+
+
+```bash
+$ composer test-coverage
+```
+
+Run PHP style checker
+
+```bash
+$ composer check-style
+```
+
+Run PHP style fixer
+
+```bash
+$ composer fix-style
+```
 
 ## Contributing
 
@@ -43,3 +60,19 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details
 ## License
 
 Please see [License File](LICENSE) for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/ThrusterIO/project-generator.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/ThrusterIO/project-generator/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/ThrusterIO/project-generator.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/ThrusterIO/project-generator.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/thruster/project-generator.svg?style=flat-square
+[ico-email]: https://img.shields.io/badge/email-team@thruster.io-blue.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/ThrusterIO/project-generator
+[link-travis]: https://travis-ci.org/ThrusterIO/project-generator
+[link-scrutinizer]: https://scrutinizer-ci.com/g/ThrusterIO/project-generator/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/ThrusterIO/project-generator
+[link-downloads]: https://packagist.org/packages/thruster/project-generator
+[link-email]: mailto:team@thruster.io
+[link-contributors]: ../../contributors

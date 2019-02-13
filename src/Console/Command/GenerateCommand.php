@@ -151,7 +151,8 @@ class GenerateCommand extends Command
             return 1;
         }
 
-        $question = new Question('<question>Please enter git repository:</question> ');
+        $repo = 'git@github.com:ThrusterIO/' . $nameCan . '.git';
+        $question = new Question('<question>Please enter git repository (' . $repo . '):</question> ', $repo);
 
         $repo = $helper->ask($input, $output, $question);
 
@@ -182,6 +183,10 @@ class GenerateCommand extends Command
 
         $output->write('<info>Removing src/.gitkeep file: </info>');
         $fs->remove($projectPath . '/src/.gitkeep');
+        $output->writeln('<comment>Done</comment>');
+
+        $output->write('<info>Removing tests/.gitkeep file: </info>');
+        $fs->remove($projectPath . '/tests/.gitkeep');
         $output->writeln('<comment>Done</comment>');
 
         $output->write('<info>Initialized empty Git repository: </info>');
