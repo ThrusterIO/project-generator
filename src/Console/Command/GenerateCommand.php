@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Thruster\Tool\ProjectGenerator\Console\Command;
 
 use GitWrapper\GitWrapper;
@@ -8,29 +10,27 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Funct\Strings;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
- * Class GenerateCommand
+ * Class GenerateCommand.
  *
- * @package Thruster\Tool\ProjectGenerator\Console\Command
  * @author  Aurimas Niekis <aurimas@niekis.lt>
  */
 class GenerateCommand extends Command
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('main');
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -39,7 +39,7 @@ class GenerateCommand extends Command
         $output->writeln(
             [
                 $this->getApplication()->getLongVersion(),
-                ''
+                '',
             ]
         );
 
@@ -51,7 +51,7 @@ class GenerateCommand extends Command
             $output->writeln(
                 [
                     '',
-                    '<error>Error: Project name cannot be empty</error>'
+                    '<error>Error: Project name cannot be empty</error>',
                 ]
             );
 
@@ -62,21 +62,21 @@ class GenerateCommand extends Command
             $output->writeln(
                 [
                     '',
-                    '<error>Error: Project name must be title case</error>'
+                    '<error>Error: Project name must be title case</error>',
                 ]
             );
 
             return 1;
         }
 
-        $nameCan = Strings\dasherize($name);
+        $nameCan     = strtolower(preg_replace('/(?<!^)([A-Z])/', '-$1', str_replace('_', '-', $name)));
         $projectPath = getcwd() . '/' . $nameCan;
 
         if (file_exists($projectPath) || is_dir($projectPath)) {
             $output->writeln(
                 [
                     '',
-                    '<error>Error: Project with name "' . $nameCan . '" already exists</error>'
+                    '<error>Error: Project with name "' . $nameCan . '" already exists</error>',
                 ]
             );
 
@@ -84,7 +84,7 @@ class GenerateCommand extends Command
         }
 
         $projectTypes = ['Component', 'Tool', 'Bundle', 'Action'];
-        $question = new Question('<question>Please enter project type (Component):</question> ', 'Component');
+        $question     = new Question('<question>Please enter project type (Component):</question> ', 'Component');
         $question->setAutocompleterValues($projectTypes);
 
         $projectType = $helper->ask($input, $output, $question);
@@ -93,7 +93,7 @@ class GenerateCommand extends Command
             $output->writeln(
                 [
                     '',
-                    '<error>Error: Project type cannot be empty</error>'
+                    '<error>Error: Project type cannot be empty</error>',
                 ]
             );
 
@@ -104,14 +104,14 @@ class GenerateCommand extends Command
             $output->writeln(
                 [
                     '',
-                    '<error>Error: Project type must be title case</error>'
+                    '<error>Error: Project type must be title case</error>',
                 ]
             );
 
             return 1;
         }
 
-        $author = rtrim(shell_exec("git config --get user.name"));
+        $author    = rtrim(shell_exec('git config --get user.name'));
         $authorSug = '';
         if (null !== $author) {
             $authorSug = '(' . $author . ')';
@@ -124,14 +124,14 @@ class GenerateCommand extends Command
             $output->writeln(
                 [
                     '',
-                    '<error>Error: Author cannot be empty</error>'
+                    '<error>Error: Author cannot be empty</error>',
                 ]
             );
 
             return 1;
         }
 
-        $email = rtrim(shell_exec("git config --get user.email"));
+        $email    = rtrim(shell_exec('git config --get user.email'));
         $emailSug = '';
         if (null !== $email) {
             $emailSug = '(' . $email . ')';
@@ -144,14 +144,14 @@ class GenerateCommand extends Command
             $output->writeln(
                 [
                     '',
-                    '<error>Error: Email cannot be empty</error>'
+                    '<error>Error: Email cannot be empty</error>',
                 ]
             );
 
             return 1;
         }
 
-        $repo = 'git@github.com:ThrusterIO/' . $nameCan . '.git';
+        $repo     = 'git@github.com:ThrusterIO/' . $nameCan . '.git';
         $question = new Question('<question>Please enter git repository (' . $repo . '):</question> ', $repo);
 
         $repo = $helper->ask($input, $output, $question);
@@ -160,7 +160,7 @@ class GenerateCommand extends Command
             $output->writeln(
                 [
                     '',
-                    '<error>Error: Git repository cannot be empty</error>'
+                    '<error>Error: Git repository cannot be empty</error>',
                 ]
             );
 
@@ -196,7 +196,6 @@ class GenerateCommand extends Command
         $finder = new Finder();
         $finder->in($projectPath)->ignoreDotFiles(false)->files();
 
-
         $output->writeln(['', '<info>Applying variables to files: </info>']);
         $progress = new ProgressBar($output, count($finder));
         $progress->setFormat('debug');
@@ -210,7 +209,7 @@ class GenerateCommand extends Command
                 '${PROJECT_TYPE}$',
                 '${YEAR}$',
                 '${AUTHOR}$',
-                '${EMAIL}$'
+                '${EMAIL}$',
             ];
 
             $replaceWith = [
@@ -219,7 +218,7 @@ class GenerateCommand extends Command
                 $projectType,
                 $year,
                 $author,
-                $email
+                $email,
             ];
 
             $progress->setMessage($file->getFilename());

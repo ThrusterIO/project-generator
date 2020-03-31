@@ -1,23 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Thruster\Tool\ProjectGenerator\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
-use Symfony\Component\Console\Input\InputInterface;
 use Thruster\Tool\ProjectGenerator\Console\Command\CreateRepoCommand;
 use Thruster\Tool\ProjectGenerator\Console\Command\EnableCICommand;
 use Thruster\Tool\ProjectGenerator\Console\Command\GenerateCommand;
 
 /**
- * Class Application
+ * Class Application.
  *
- * @package Thruster\Tool\ProjectGenerator
  * @author  Aurimas Niekis <aurimas@niekis.lt>
  */
 class Application extends BaseApplication
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function __construct()
     {
@@ -33,7 +33,7 @@ class Application extends BaseApplication
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getLongVersion()
     {
@@ -42,5 +42,4 @@ class Application extends BaseApplication
 
         return $version;
     }
-
 }

@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Thruster\Tool\ProjectGenerator\Console;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class PackagistAdder
+ * Class PackagistAdder.
  *
- * @package Thruster\Tool\ProjectGenerator\Console
  * @author  Aurimas Niekis <aurimas@niekis.lt>
  */
 class PackagistAdder
@@ -68,7 +69,6 @@ class PackagistAdder
 
             return 1;
         }
-
 
         $output->writeln('');
         $output->writeln('<info>Done.</info>');
@@ -176,7 +176,7 @@ class PackagistAdder
             return false;
         }
 
-        return $result['status'] === 'success';
+        return 'success' === $result['status'];
     }
 
     private function submitPackage($url)
@@ -224,11 +224,11 @@ class PackagistAdder
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://packagist.org/packages/submit");
+        curl_setopt($ch, CURLOPT_URL, 'https://packagist.org/packages/submit');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 
-        $headers = array();
+        $headers   = [];
         $headers[] = 'Cookie: pauth=' . $this->pauth . ';';
         $headers[] = 'Origin: https://packagist.org';
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);

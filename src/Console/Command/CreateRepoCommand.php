@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Thruster\Tool\ProjectGenerator\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -9,14 +11,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 /**
- * Class CreateRepoCommand
+ * Class CreateRepoCommand.
  *
- * @package Thruster\Tool\ProjectGenerator\Console\Command
  * @author  Aurimas Niekis <aurimas@niekis.lt>
  */
 class CreateRepoCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('create:repo')
             ->addOption(
@@ -47,7 +48,7 @@ class CreateRepoCommand extends Command
         $composerJson = json_decode(file_get_contents($workDir . '/composer.json'), true);
 
         [$vendor, $name] = explode('/', $composerJson['name']);
-        $organisation = $input->getOption('organisation');
+        $organisation    = $input->getOption('organisation');
 
         $output->write('<info>Creating GitHub Repository: </info>');
         $output->writeln('<comment>' . $organisation . '/' . $name . '</comment>');
@@ -67,11 +68,10 @@ class CreateRepoCommand extends Command
         $process = new Process($options);
         $process->start();
 
-        $process->wait(function ($type, $buffer) {
+        $process->wait(function ($type, $buffer): void {
             echo $buffer;
         });
 
         return $process->getExitCode();
     }
-
 }

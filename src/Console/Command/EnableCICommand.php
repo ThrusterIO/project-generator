@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Thruster\Tool\ProjectGenerator\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -10,14 +12,13 @@ use Symfony\Component\Process\Process;
 use Thruster\Tool\ProjectGenerator\Console\PackagistAdder;
 
 /**
- * Class EnableCICommand
+ * Class EnableCICommand.
  *
- * @package Thruster\Tool\ProjectGenerator\Console\Command
  * @author  Aurimas Niekis <aurimas@niekis.lt>
  */
 class EnableCICommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('enable:ci')
             ->addOption(
@@ -42,7 +43,7 @@ class EnableCICommand extends Command
         $composerJson = json_decode(file_get_contents($workDir . '/composer.json'), true);
 
         [$vendor, $name] = explode('/', $composerJson['name']);
-        $organisation = $input->getOption('organisation');
+        $organisation    = $input->getOption('organisation');
 
         $output->write('<info>Enabling Travis on </info>');
         $output->writeln('<comment>' . $organisation . '/' . $name . '</comment>');
@@ -54,12 +55,12 @@ class EnableCICommand extends Command
         return $packagistAdder->execute($output);
     }
 
-    private function exec(array $args)
+    private function exec(array $args): void
     {
         $process = new Process($args);
         $process->start();
 
-        $process->wait(function ($type, $buffer) {
+        $process->wait(function ($type, $buffer): void {
             echo $buffer;
         });
     }
